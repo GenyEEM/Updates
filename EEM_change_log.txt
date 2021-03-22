@@ -1,0 +1,125 @@
+2021-03-19 
+EEM software enhancements & fixed issues:
+1. In repeatability tests, delays were added when switching load points
+2. Optimized error preview interface
+
+2021-03-15 
+EEM software enhancements & fixed issues:
+1. fixed issue about reference standard meter communication on type G test benches
+
+2021-02-14 
+EEM software enhancements:
+1. Support new reference standard meter SZ-01A-K3E
+
+2021-02-10 
+EEM software enhancements:
+1. Added 12 times error readings for accuracy test of meter built-in clock
+2. All error data can be output in text format, including accuracy test of meter built-in clock
+
+2021-02-03 
+EEM software enhancements & fixed issues:
+1. Added new feature accuracy test of meter built-in clock 
+
+2020-12-29
+EEM new version 1.4.27 enhancements & fixed issues:
+1. Fixed an issue with reactive warm-up skip
+2. Fixed issue at Dail test display problem when four-quadrant tests to be selected
+3. Improved the stability of communication on model YC1891G/YC1893G meter test systems
+4. Totally support for parallel communication on YC1891G/YC1893G  meter test systems 
+5. Toolkit program adds new feature Clock pulsing test
+6. Support new reference standard meter SZ03A-K8F
+7. Added new monitor feature for Runtime parameters
+8. Added the Power Consumption feature on toolkit program
+9. Added the Relay Test feature on toolkit program
+
+2020-9-9
+EEM new version 1.4.26 enhancements:
+1. Allow Creep test / Start test to set pulse number more than 1
+2. Creep test current can be input in milliamperes
+3. Added dial test option, which to allows the test to operate at large current levels. The operating current will be reduced to the set output value under the set margin conditions 
+4. Added the function of error check for indication of power source output 
+
+2020-7-30
+EEM new version 1.4.25 enhancements:
+1. Database structure is modified, the error data of accuracy test can be saved 12 times for each test point, and qualified mark.
+2. Software can query and output 12 error data
+3. Software can output a variety of excel files (5 options to choose)
+4. Software output to text file with 12 times error data
+
+2020-07-13
+EEM new version 1.4.24 enhancements:
+1. Added vector graph display with RYB color.
+
+2020-07-13
+EEM new version 1.4.23 enhancements:
+1. Added vector graph display.
+
+2020-06-3
+EEM new version 1.4.22 enhancements:
+1. fixed a bug in rapid pulsing test of small current on three phase test bench for single phase meter testing.
+
+2020-05-25
+EEM enhancements:
+1. Optimized the excel report and fixed some errors
+
+2020-04-30
+EEM 1.4.21 enhancements:
+1. Built-in clock pulsing test
+2. Test bench runtime parameters can be read out
+Including plugins:
+1. DeviceControl.dll version 1.1.1.66
+
+2020-02-13
+EEM 1.4.20 bug-fixes:
+1. fixed bugs in the dial test at the input of KWH energy in a meter under testing. 
+
+2020-02-10
+EEM 1.4.18 enhancements
+1. change to 59 seconds for awaiting ICTs reset manually
+
+2020-02-08
+EEM 1.4.17 enhancements and bug-fixes:
+1. Added new feature for testing of prepaid meter
+   When checking the prepaid meter, the meter first puts on the voltage, and then the load relay waits for a few seconds before it closes.
+At this point, the customer needs to manually press the ICT reset button before the current can start to check. 
+2. fixed bugs for power source operating manually
+
+2020-02-06
+EEM 1.4.14 updates for datastore:
+1.  The special column "data6" for Neutral test point "L2"
+2.  "L2" disappear in database
+
+2020-01-11
+EEM 1.4.11 enhancements and bug-fixes:
+1. fix bugs at the input of energy of meter in dial test
+
+2020-01-10
+EEM 1.4.10 enhancements and bug-fixes:
+1. Fix wrong result issue when energy input 0 in dial test
+2. Fix some issues for type-G bench in dial test 
+
+2019-11-28
+EEM 1.4.7 enhancements and bug-fixes:
+1. Added automatic readings of energy register in dial test 
+2. Fixed program crash issue in automatic readings 
+
+Included plugins:
+1.  prjRS485mgr.dll version 1.1.12
+
+2019-11-25
+EEM 1.3.50 enhancements and bug-fixes:
+1.  Optimize small current pulsing test flow
+2.  Support parallel communication of error calculation system(need hardware modification)
+3.  Support parallel communication of reference meter 
+4.  Support parallel communication of DUTs 
+4.  Fix issue for Radian RX BNC port setting
+5.  During test time, control three BNC ports (1/2/3) respectively
+6.  Added the option to manually control the power source
+Included plugins:
+1.  Communication.exe
+2.  GenyCommunication.dll
+3.  CtrComm.dll
+4.  prjErrCalMgr.dll
+5.  prjRS485mgr.dll
+6.  prjStdMeterMgr.dll 
+
