@@ -1,3 +1,7 @@
+2021-03-26 
+EEM software enhancements & fixed issues:
+1.  Optimize the communication efficiency of Radian RD30 standard meter 
+
 2021-03-19 
 EEM software enhancements & fixed issues:
 1. In repeatability tests, delays were added when switching load points
