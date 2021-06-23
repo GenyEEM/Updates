@@ -1,3 +1,8 @@
+2021-06-23 
+EEM software enhancements & fixed issues:
+1.  Toolkit program adds a new feature for dial test
+2.  Fixed issue about error display for influence test 
+
 2021-03-26 
 EEM software enhancements & fixed issues:
 1.  Optimize the communication efficiency of Radian RD30 standard meter 
