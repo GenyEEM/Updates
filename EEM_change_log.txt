@@ -1,3 +1,19 @@
+2021-08-02 
+EEM software fixed issues:
+1. Fixed reading issue for dial test on 3p3w mode
+
+2021-07-21 
+EEM software fixed issues:
+1. Fixed reading issues with creeping / starting / dial test for type-g systems
+2. Large number of pulse/circle is allowed to input in load point accuracy test, and error calculator can automatically divide frequency (pulse) as well
+
+2021-07-02 
+EEM software enhancements & fixed issues:
+1.  Fixed issue #system problems caused by calling different versions of Excel execution programs
+2.  Fixed issue #data storage for influence test
+3.  Support to test of 1-phase 3-wire meters
+4.  Export influence test data to text file
+
 2021-06-23 
 EEM software enhancements & fixed issues:
 1.  Toolkit program adds a new feature for dial test
