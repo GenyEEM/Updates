@@ -1,3 +1,33 @@
+2021-12-02
+1. Added Max demand test in EEM sequence test program 
+
+2021-11-13
+EEM software enhancements & fixed issues:
+1. Fix up the 1P3W meter test problem
+2. Add new test for 2P3W electricity meter
+3. Optional working current for preheating
+4. Improved synchronization of multiple test benches
+
+2021-08-26 
+EEM software enhancements:
+1. Added new reference standard meter SZ-01A-K3F
+
+2021-08-14 
+EEM software enhancements:
+1. Add new feature for dial test / MD test  to utility program 
+
+2021-08-11 
+EEM software fixed issues:
+1. Fixed issue #influence test for type-g bench
+
+2021-08-09 
+EEM software enhancements:
+1. Added new feature for calculation of test pulse number according to quantization error control rules
+
+2021-08-07 
+EEM software fixed issues:
+1. fixed issue# harmonic injection for type-g test bench
+
 2021-08-02 
 EEM software fixed issues:
 1. Fixed reading issue for dial test on 3p3w mode
