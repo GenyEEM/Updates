@@ -1,0 +1,11 @@
+Database SQL for Sql server
+it's about EEM database for 1-postion test bench
+1. dbData
+2. SeleWay
+3. tmpData
+
+it's about Sub-standard meter database for 2-postion test bench
+1. dbMeasureDegree
+2. dbMeterTmp
+3. dbTestData
+4. InputTemp
