@@ -1,0 +1,167 @@
+CREATE TABLE BiaoZhenBiaoData (
+    ModelTypeId INT NULL, -- Model Type ID
+    TypeId INT NULL, -- Type ID
+    ListT INT NULL, -- List T
+    WhatTable INT NULL, -- What Table
+    WhereGrid INT NULL, -- Where Grid
+    ListSecondT INT NULL, -- List Second T
+    Fun INT NULL, -- Fun
+    Connection INT NULL, -- Connection
+    Data FLOAT NULL -- Data
+);
+
+
+CREATE TABLE DataList (
+    DataName NVARCHAR(20) NULL, -- Data Name
+    Content NVARCHAR(50) NULL  -- Content
+);
+
+
+CREATE TABLE ParamList (
+    Id INT NOT NULL IDENTITY(1,1), -- Primary Key
+    FuZaiDianLiu FLOAT NULL, -- Load Current
+    FuZaiLilu FLOAT NULL, -- Load Power Factor
+    CheckTypeId SMALLINT NULL, -- Check Type Number
+    CheckTypeDes NVARCHAR(50) NULL, -- Check Type Description
+    CheckAffectId SMALLINT NULL, -- Influence Quantity Type Number
+    CheckAffectDes NVARCHAR(50) NULL -- Influence Quantity Type Description
+);
+
+CREATE TABLE tblCheckHarmonic (
+    CheckID INT NOT NULL IDENTITY(1,1), -- Harmonic Template Number
+    CheckHarmonicName NVARCHAR(50) NULL, -- Harmonic Template Name
+    CheckTime SMALLINT NULL -- Maximum Harmonic Order. -1 is half-wave, -2 is odd harmonics, -3 is sub-harmonics
+);
+
+
+CREATE TABLE tblCheckWay (
+    CheckID INT NOT NULL IDENTITY(1,1), -- Check Point Template Number
+    CheckWayName NVARCHAR(50) NULL, -- Check Point Template Name
+    CheckType SMALLINT NULL -- Check Type: 0 for basic check; 1 for start-up; 2 for hidden movement
+);
+
+CREATE TABLE tblHarmonic (
+    CheckID INT NULL, -- Harmonic Template Number
+    Frequency TINYINT NULL, -- Harmonic Order
+    Voltage FLOAT NULL, -- Voltage Amplitude
+    VoltageAngle FLOAT NULL, -- Voltage Phase
+    Current FLOAT NULL, -- Current Amplitude
+    CurrentAngle FLOAT NULL -- Current Phase
+);
+
+CREATE TABLE tblMeterModel (
+    ModelTypeID INT NOT NULL, -- Model Number
+    MeterName NVARCHAR(50) NULL, -- Meter Name
+    MeterType NVARCHAR(50) NULL, -- Model Name
+    Type INT NULL, -- Meter Type: 1 for electronic meter, 2 for static meter, 4 for mechanical meter, 8 for electromechanical meter, 16 for standard meter, 32 for portable instrument. +256 indicates a mechanical meter with a reverse flow device; electronic meter indicates level with S; standard meter indicates B type.
+    SwitchOnMode TINYINT NULL, -- Electronic meter connection mode: 0 for direct connection, 1 for connection with transformer
+    Detent TINYINT NULL, -- Induction meter with or without a detent: 0 for no detent, 1 for with detent
+    ReferenceMeterType TINYINT NULL, -- Standard meter type: 0 for type A, 1 for type B
+    Class NVARCHAR(8) NULL, -- Class
+    Class1 NVARCHAR(8) NULL, -- Class 1 (Reactive Power Class)
+    Connection TINYINT NULL, -- Wiring method: Single phase (1), Three phase (2), Three wire (4), Four wire (8), Active (16), Reactive (32), Apparent reactive (64), Reverse (128). Single phase (49), Single phase active (17), Single phase reactive (33); Three phase three wire (54), Three phase three wire active (22), Three phase three wire reactive (38); Three phase four wire (58), Three phase four wire active (26), Three phase four wire reactive (42); Three phase (62), Three phase active (30), Three phase reactive (46)
+    Voltage FLOAT NULL, -- Rated Voltage
+    Current FLOAT NULL, -- Calibration Current
+    CurrentMax FLOAT NULL, -- Rated Maximum Current
+    Frequency FLOAT NULL, -- Rated Frequency
+    Constant FLOAT NULL, -- Constant
+    ConstantUnit NVARCHAR(10) NULL, -- Constant Unit
+    ConstantReactive FLOAT NULL, -- Reactive Power Constant
+    ConstantUnitReactive NVARCHAR(10) NULL, -- Reactive Power Constant Unit
+    Manufactory NVARCHAR(50) NULL, -- Manufacturer
+    ProduceStandard NTEXT NULL, -- Production Standard
+    TimeFrequency FLOAT NULL, -- Clock Frequency
+    ProtocolID SMALLINT NULL, -- Communication Protocol Number
+    Baudrate INT NULL, -- Baud Rate
+    DataBit TINYINT NULL, -- Data Bits
+    StopBit TINYINT NULL, -- Stop Bits
+    Parity NVARCHAR(1) NULL, -- Parity
+    DecimalDigits SMALLINT NULL, -- Meter Minimum Resolution: Power of 10
+    WGZX INT NULL, -- Reactive Power Forward
+    WGFX INT NULL -- Reactive Power Reverse
+);
+
+CREATE TABLE tblPrjHarmonic (
+    ProjectID INT NULL, -- Verification Plan Template Number
+    MeasureDegreeID INT NULL, -- Measurement Range Number (Each model has multiple measurement ranges, and each range has a unique number)
+    TestItemID INT NULL, -- Test Item ID
+    Frequency TINYINT NULL, -- Harmonic Order
+    Voltage FLOAT NULL, -- Voltage Amplitude
+    VoltageAngle FLOAT NULL, -- Voltage Phase
+    Current FLOAT NULL, -- Current Amplitude
+    CurrentAngle FLOAT NULL -- Current Phase
+);
+
+CREATE TABLE tblPrjMeasureDegree (
+    ProjectID INT NULL, -- Verification Plan Template Number
+    MeasureDegreeID INT NULL, -- Measurement Range Number (Each model has multiple measurement ranges, each with a unique number)
+    MeasureName NVARCHAR(50) NULL, -- Measurement Range Name
+    ListNo SMALLINT NULL, -- Verification Sequence
+    Voltage FLOAT NULL, -- Reference Voltage for Measurement Range
+    Current FLOAT NULL, -- Calibration Current for Measurement Range
+    ConnectMode TINYINT NULL, -- Wiring Method for Measurement Range: Single phase active (17), single phase reactive (33), single phase apparent reactive (97); Three phase three wire active (22), three phase three wire reactive (38), three phase three wire apparent reactive (102); Three phase four wire active (26), three phase four wire reactive (42), three phase four wire apparent reactive (106); Single phase active reverse (145), single phase reactive reverse (161), single phase apparent reactive reverse (225); Three phase three wire active reverse (150), three phase three wire reactive reverse (166), three phase three wire apparent reactive reverse (230); Three phase four wire active reverse (154), three phase four wire reactive reverse (170), three phase four wire apparent reactive reverse (234)
+    IsTest BIT NOT NULL -- Whether to Use This Measurement Range
+);
+
+CREATE TABLE tblPrjTestItem (
+    ProjectID INT NULL, -- Verification Plan Template Number
+    MeasureDegreeID INT NULL, -- Measurement Range Number (Each model has multiple measurement ranges, each with a unique number)
+    TestItemID INT NULL, -- Verification Item ID
+    ListNo SMALLINT NULL, -- Verification Sequence
+    TestItemName NVARCHAR(50) NULL, -- Verification Item Name
+    CheckType SMALLINT NULL, -- Verification Type: 0 for basic verification; 1 for start-up; 2 for hidden movement; 3 for constant check test; 4 for meter total energy indication error; 5 for meter indication combination error; 6 for daily timing error; 7 for determine time segment switching; 8 for demand indication error; 9 for sampling pulse frequency; 10 for determine demand period error; 11 for power supply voltage influence; 12 for energy metering; 13 for demand reset; 14 for maximum demand; 15 for tariff and time period; 16 for event recording; 17 for programmer preset content check; 18 for display function; 19 for extended function check; 20 for reverse power influence; 21 for power consumption measurement
+    CheckAffect SMALLINT NULL, -- 0 No impact test; 1 for voltage impact; 2 for frequency impact; 3 for reverse phase sequence; 4 for voltage unbalance; 5 harmonics input; 6 for tilt test
+    CheckValue FLOAT NULL, -- Impact test input quantity: does not affect the basic test. For harmonic tests, it is the total harmonic order, the highest harmonic order; -1 is half-wave, -2 is odd harmonics, -3 is sub-harmonics. Constant check for metered energy. For meter total energy indication error: mechanical type is metered number, electronic type is metered time, hour. For meter indication combination error, it is metered number. Daily timing error method: 0 for demand indication error, it is demand period, min.
+    CheckValue1 FLOAT NULL, -- Daily timing error running time, hour
+    CheckValue2 FLOAT NULL,
+    CheckValue3 FLOAT NULL,
+    CheckValue4 FLOAT NULL,
+    IsTest BIT NOT NULL -- Whether to Use This Test Item
+);
+
+
+CREATE TABLE tblPrjTestPoint (
+    ProjectID INT NULL, -- Verification Plan Template Number
+    MeasureDegreeID INT NULL, -- Measurement Range Number (Each model has multiple measurement ranges, each with a unique number)
+    TestItemID INT NULL, -- Verification Item ID
+    ListNo SMALLINT NULL, -- Sequence Number
+    TestPointName NVARCHAR(50) NULL, -- Verification Load Point Name
+    TestPointId INT NULL, -- Verification Point ID
+    Phase TINYINT NULL, -- Current element: 1 for A phase, 2 for B phase, 4 for C phase, 0 or 7 for all phases; Voltage phase: 8 for A phase, 16 for B phase, 32 for C phase
+    VoltagePercent FLOAT NULL, -- Voltage Percentage
+    CurrentPercent FLOAT NULL, -- >0 for calibration current multiple, -1 Imax, -2 1/2Imax, -3 1/2(Imax-Ib)
+    PowerFoctor FLOAT NULL, -- Power Factor: >0 for inductive, <0 for capacitive
+    Cycle INT NULL, -- Number of cycles
+    SampleCount INT NULL, -- Number of samples
+    TestTime INT NULL, -- Test time in seconds
+    Time INT NULL, -- Test time
+    TopErr FLOAT NULL, -- Error upper limit
+    BotErr FLOAT NULL, -- Error lower limit
+    IsTest BIT NOT NULL, -- Whether to Conduct Verification
+    StandardErr FLOAT NULL, -- Standard deviation estimated value range only positive
+    IsStandardTest BIT NOT NULL, -- Whether to perform standard deviation estimation
+    IsTestPoint BIT NOT NULL -- Whether to include this load point
+);
+
+CREATE TABLE tblProject (
+    ProjectID INT NOT NULL IDENTITY(1,1), -- Verification Plan Template Number (Automatically Generated Unique Number)
+    ProjectName NVARCHAR(50) NULL, -- Verification Plan Template Name
+    ConnectMode INT NULL -- Verification is provided for a specific wiring method
+);
+
+
+CREATE TABLE tblTestPoint (
+    CheckID INT NULL, -- Verification Point Template Number
+    TestPointName NVARCHAR(50) NULL, -- Verification Load Point Name
+    TestPointId INT NULL, -- Verification Point ID
+    ListNo SMALLINT NULL, -- Sequence Number
+    Phase TINYINT NULL, -- Current element: 1 for A phase, 2 for B phase, 4 for C phase, 0 or 7 for all phases; Voltage phase: 8 for A phase, 16 for B phase, 32 for C phase
+    VoltagePercent FLOAT NULL, -- Voltage Percentage
+    CurrentPercent FLOAT NULL, -- >=0 for calibration current multiple, -1 Imax, -2 1/2Imax, -3 1/2(Imax-Ib)
+    PowerFoctor FLOAT NULL, -- Power Factor: >0 for inductive, <0 for capacitive
+    Cycle INT NULL, -- Number of cycles
+    SampleCount INT NULL, -- Number of samples
+    TestTime INT NULL -- Test time in seconds
+);
+
+

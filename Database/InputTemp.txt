@@ -1,0 +1,63 @@
+CREATE TABLE Inputtemp (
+    Meterid INT,
+    Modeltypeid INT,
+    Serialno NVARCHAR(50),
+    Meterno NVARCHAR(50),
+    barcode NVARCHAR(50),
+    MeterAddress INT,
+    Model NVARCHAR(50),
+    MadePlace NVARCHAR(50),
+    TestUnit NVARCHAR(50),
+    TestDate NVARCHAR(50),
+    StartDeg NVARCHAR(50),
+    Enddeg NVARCHAR(50),
+    Constant FLOAT,
+    Class FLOAT,
+    Class1 FLOAT,
+    Voltage FLOAT,
+    Current FLOAT,
+    CurrentMax FLOAT,
+    TestCircs NVARCHAR(20),
+    Type NVARCHAR(50),
+    ConstantReactive FLOAT,
+    Connection NVARCHAR(20)
+);
+
+CREATE TABLE tempdata (
+    Serialno NVARCHAR(50),
+    Meterno NVARCHAR(50),
+    Assetno NVARCHAR(50),
+    barcode NVARCHAR(50),
+    MeterAddress INT,
+    Model NVARCHAR(50),
+    MadePlace NVARCHAR(50),
+    TestUnit NVARCHAR(50),
+    TestDate NVARCHAR(50),
+    StartDeg NVARCHAR(50),
+    Enddeg NVARCHAR(50),
+    Constant FLOAT,
+    Class FLOAT,
+    Class1 FLOAT,
+    Voltage FLOAT,
+    Current FLOAT,
+    CurrentMax FLOAT,
+    TestCircs NVARCHAR(20),
+    Type NVARCHAR(50),
+    ConstantReactive FLOAT
+);
+
+CREATE TABLE Txmcode (
+    Id INT,
+    TxmOption NVARCHAR(20),
+    StarCode SMALLINT,
+    EndCode SMALLINT,
+    TxmCode NVARCHAR(20),
+    TxmCodeText NVARCHAR(50)
+);
+
+CREATE TABLE Txmway (
+    Txmid INT,
+    TxmOK INT,
+    Txmname NVARCHAR(50)
+);
+

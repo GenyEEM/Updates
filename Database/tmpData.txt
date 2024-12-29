@@ -1,0 +1,442 @@
+CREATE TABLE NumberCode (
+    IndexID SMALLINT NOT NULL, -- 表位号
+    serialno NVARCHAR(50) NULL, -- 局编号
+    meterno NVARCHAR(50) NULL, -- 出厂编号
+    ScanCode NVARCHAR(30) NULL, -- 条形码
+    Constant NVARCHAR(32) NULL, -- 常数
+    TesterCode NVARCHAR(5) NULL, -- 工号
+    TestCircs NVARCHAR(6) NULL, -- 调整前后
+    ADDRESS NVARCHAR(16) NULL, -- 通讯地址
+    MODEL NVARCHAR(20) NULL, -- 型号
+    MadePlace NVARCHAR(30) NULL, -- 制造厂
+    SerialDate NVARCHAR(10) NULL, -- 出厂日期
+    TestUnit NVARCHAR(30) NULL, -- 送检单位
+    Class NVARCHAR(50) NULL, -- 类别
+    Voltage NVARCHAR(20) NULL, -- 额定电压
+    Current NVARCHAR(20) NULL, -- 额定电流Ib（Imax）
+    Precision NVARCHAR(20) NULL, -- 准确度等级
+    Frequency INT NULL, -- 标定频率
+    StartDeg NVARCHAR(16) NULL, -- 起始度
+    cConnectMode NVARCHAR(30) NULL, -- 接线方式
+    cLeiXing NVARCHAR(30) NULL, -- 类型
+    cInMode NVARCHAR(16) NULL, -- 接入方式：直接接入；经互感器接入
+    cTestMode NVARCHAR(4) NULL, -- 首检/周检/抽检
+    bStopBack BIT NOT NULL, -- 有无止逆器
+    cCommProtocol NVARCHAR(50) NULL, -- 通讯协议
+    cPassword NVARCHAR(20) NULL, -- 密码
+    cCommSetting NVARCHAR(20) NULL, -- 通讯设置
+    iDemandCycle SMALLINT NULL, -- 需量周期（分钟）
+    iDemandStep INT NULL, -- 化差时间
+    fDayFrequency FLOAT NULL, -- 日计时频率
+    iDayDivideFre INT NULL, -- 日计时分频系数
+    cPeriodSharp NVARCHAR(8) NULL, -- 尖投切时间
+    cPeriodPeak NVARCHAR(8) NULL, -- 峰投切时间
+    cPeriodPlane NVARCHAR(8) NULL, -- 平投切时间
+    cPeriodVale NVARCHAR(8) NULL, -- 谷投切时间
+    bAvailable BIT NOT NULL, -- 是否测试标志
+    iReactiveMode SMALLINT NULL, -- 正象无功类型0：一二1:一四相限:2:一三相限
+    iPulseMode SMALLINT NULL, -- 脉冲类型0：共阴1:共阳
+    PrecisionQ NVARCHAR(20) NULL, -- 准确度等级(无功)
+    iPowerPoint INT NULL, -- 电量小数位（0，1，2，3，4，5，6...）
+    EConstant NVARCHAR(30) NULL -- 电子常数
+);
+
+CREATE TABLE tblRtInfo (
+    pid SMALLINT NULL, -- PID
+    range SMALLINT NULL, -- Range
+    pt SMALLINT NULL, -- PT
+    iteration SMALLINT NULL, -- Iteration
+    begintime DATETIME NULL, -- Begin Time
+    endtime DATETIME NULL, -- End Time
+    temp FLOAT NULL, -- Temperature
+    humi FLOAT NULL, -- Humidity
+    WhtLimit FLOAT NULL, -- Active Power Limit
+    varhtLimit FLOAT NULL, -- Reactive Power Limit
+    setvolt FLOAT NULL, -- Set Voltage
+    setamp FLOAT NULL, -- Set Current
+    setangle FLOAT NULL, -- Set Angle
+    setfreq FLOAT NULL, -- Set Frequency
+    elms SMALLINT NULL, -- ELMS
+    rdimpwh FLOAT NULL, -- Read Impedance Active Power
+    rdimpvah FLOAT NULL, -- Read Impedance Reactive Power
+    param1 NVARCHAR(255) NULL, -- Parameter 1
+    param2 NVARCHAR(255) NULL, -- Parameter 2
+    param3 NVARCHAR(255) NULL, -- Parameter 3
+    param4 NVARCHAR(255) NULL, -- Parameter 4
+    param5 NVARCHAR(255) NULL, -- Parameter 5
+    param6 NVARCHAR(255) NULL, -- Parameter 6
+    param7 NVARCHAR(255) NULL, -- Parameter 7
+    param8 NVARCHAR(255) NULL, -- Parameter 8
+    param9 NVARCHAR(255) NULL, -- Parameter 9
+    param10 NVARCHAR(255) NULL -- Parameter 10
+);
+
+CREATE TABLE TmpCommResult (
+    ID INT IDENTITY(1,1) NOT NULL, -- ID
+    IndexID INT NULL, -- 表位
+    Conclusion NVARCHAR(6) NULL, -- 结论
+    CommDate NVARCHAR(16) NULL, -- 日期
+    CommTime NVARCHAR(16) NULL, -- 时间
+    CommPeriodTime1 NVARCHAR(16) NULL, -- 时段起始时间 I
+    CommPeriodTime2 NVARCHAR(16) NULL, -- 时段起始时间 II
+    CommPeriodTime3 NVARCHAR(16) NULL, -- 时段起始时间 III
+    CommPeriodTime4 NVARCHAR(16) NULL, -- 时段起始时间 IV
+    CommDemandZyAll NVARCHAR(16) NULL, -- 需量正向有功 总
+    CommDemandZyI NVARCHAR(16) NULL, -- 需量正向有功 I
+    CommDemandZyII NVARCHAR(16) NULL, -- 需量正向有功 II
+    CommDemandZyIII NVARCHAR(16) NULL, -- 需量正向有功 III
+    CommDemandZyIV NVARCHAR(16) NULL, -- 需量正向有功 IV
+    CommDemandFyAll NVARCHAR(16) NULL, -- 需量反向有功 总
+    CommDemandFyI NVARCHAR(16) NULL, -- 需量反向有功 I
+    CommDemandFyII NVARCHAR(16) NULL, -- 需量反向有功 II
+    CommDemandFyIII NVARCHAR(16) NULL, -- 需量反向有功 III
+    CommDemandFyIV NVARCHAR(16) NULL, -- 需量反向有功 IV
+    CommDemandZwAll NVARCHAR(16) NULL, -- 需量正向无功 总
+    CommDemandZwI NVARCHAR(16) NULL, -- 需量正向无功 I
+    CommDemandZwII NVARCHAR(16) NULL, -- 需量正向无功 II
+    CommDemandZwIII NVARCHAR(16) NULL, -- 需量正向无功 III
+    CommDemandZwIV NVARCHAR(16) NULL, -- 需量正向无功 IV
+    CommDemandFwAll NVARCHAR(16) NULL, -- 需量反向无功 总
+    CommDemandFwI NVARCHAR(16) NULL, -- 需量反向无功 I
+    CommDemandFwII NVARCHAR(16) NULL, -- 需量反向无功 II
+    CommDemandFwIII NVARCHAR(16) NULL, -- 需量反向无功 III
+    CommDemandFwIV NVARCHAR(16) NULL, -- 需量反向无功 IV
+    A_NowV NVARCHAR(12) NULL, -- A相电压
+    A_NowC NVARCHAR(12) NULL, -- A相电流
+    A_NowP NVARCHAR(12) NULL, -- A相有功功率
+    A_NowQ NVARCHAR(12) NULL, -- A相无功功率
+    B_NowV NVARCHAR(12) NULL, -- B相电压
+    B_NowC NVARCHAR(12) NULL, -- B相电流
+    B_NowP NVARCHAR(12) NULL, -- B相有功功率
+    B_NowQ NVARCHAR(12) NULL, -- B相无功功率
+    C_NowV NVARCHAR(12) NULL, -- C相电压
+    C_NowC NVARCHAR(12) NULL, -- C相电流
+    C_NowP NVARCHAR(12) NULL, -- C相有功功率
+    C_NowQ NVARCHAR(12) NULL, -- C相无功功率
+    State_Meter NVARCHAR(12) NULL, -- 电表状态字
+    State_Net NVARCHAR(12) NULL, -- 电网状态字
+    State_Week NVARCHAR(12) NULL, -- 周休日状态字
+    OffVol_A_Start NVARCHAR(16) NULL, -- A相失压起始时间
+    OffVol_A_End NVARCHAR(16) NULL, -- A相失压结束时间
+    OffVol_A_Times NVARCHAR(12) NULL, -- A相失压次数
+    OffVol_B_Start NVARCHAR(16) NULL, -- B相失压起始时间
+    OffVol_B_End NVARCHAR(16) NULL, -- B相失压结束时间
+    OffVol_B_Times NVARCHAR(12) NULL, -- B相失压次数
+    OffVol_C_Start NVARCHAR(16) NULL, -- C相失压起始时间
+    OffVol_C_End NVARCHAR(16) NULL, -- C相失压结束时间
+    OffVol_C_Times NVARCHAR(12) NULL, -- C相失压次数
+    CommDemandCycle NVARCHAR(16) NULL, -- 需量周期
+    CommDemandSlider NVARCHAR(16) NULL -- 滑差时间
+);
+
+CREATE TABLE TmpError (
+    IndexID SMALLINT NULL, -- 序号
+    iRangeNo INT NULL, -- 量程序号
+    cRange NVARCHAR(50) NULL, -- 量程名称
+    iPointNo INT NULL, -- 负载序号
+    cPointName NVARCHAR(50) NULL, -- 负载名称
+    cError NVARCHAR(255) NULL, -- 每次的误差数据（最新，次新，三新，...）共可能有12次
+    cAveData NVARCHAR(10) NULL, -- 最后两次平均值
+    cCIData NVARCHAR(10) NULL, -- 化整值
+    cSmax NVARCHAR(10) NULL, -- 偏差值
+    bOverLimit BIT NOT NULL, -- 是否超差(化整值/偏差值)
+    hipluses NTEXT NULL -- 备注
+);
+
+根据您提供的XML Schema文件 `TmpMultiResult`，以下是创建SQL Server数据库表的SQL语句，包括字段和索引的定义，以及将注释翻译成英文：
+
+```sql
+CREATE TABLE TmpMultiResult (
+    MeterID INT NOT NULL, -- 和其他表关联字段，具有唯一性质
+    commtest NVARCHAR(6) NULL, -- 通讯测试       ：：  不合格/未检/合格
+    statetest NVARCHAR(6) NULL, -- 状态寄存器检查 ：：  不合格/未检/合格
+    memotest NVARCHAR(6) NULL, -- 存储器检查     ：：   不合格/未检/合格
+    GPStest NVARCHAR(6) NULL, -- GPS对时检查    ：：  不合格/未检/合格
+    GPSerror NVARCHAR(20) NULL, -- GPS对时误差
+    DAYtest NVARCHAR(6) NULL, -- 日计时检查     ：：  不合格/未检/合格
+    DAYerror NVARCHAR(10) NULL, -- 日计时误差
+    TIMEsect NVARCHAR(6) NULL, -- 时段设置检查   ：：  不合格/未检/合格
+    TIMEerror NVARCHAR(6) NULL, -- 时段透切误差   ：：  不合格/未检/合格
+    combinErrT NVARCHAR(6) NULL, -- 组合误差       ：：  不合格/未检/合格
+    ShowValueErrT NVARCHAR(6) NULL, -- 示值误差测试   ：：  不合格/未检/合格
+    FeeErrT NVARCHAR(6) NULL, -- 费率误差测试   ：：  不合格/未检/合格
+    VOLtageDrop NVARCHAR(6) NULL, -- 电压跌落测试   ：：  不合格/未检/合格
+    JStandardTQ DATETIME NULL, -- 尖时段标准透切时间
+    JFactTQ DATETIME NULL, -- 尖实际投切时间
+    JError NVARCHAR(20) NULL, -- 尖投切误差值
+    JTstart NVARCHAR(20) NULL, -- 尖费率  下  总费率   起始值
+    JTend NVARCHAR(20) NULL, -- 尖费率  下  总费率   止值
+    JTvalue NVARCHAR(20) NULL, -- 尖费率  下  总费率   差值
+    Jstart NVARCHAR(20) NULL, -- 尖费率     起始值
+    Jend NVARCHAR(20) NULL, -- 尖费率     止值
+    Jvalue NVARCHAR(20) NULL, -- 尖费率     差值
+    JcombinErr NVARCHAR(20) NULL, -- 尖费率  下费率误差       |ΔW-ΔW总|*10(总计度器小数位)<=2  摘自JJG 596-1997
+    FStandardTQ DATETIME NULL, -- 峰时段标准投切时间
+    FFactTQ DATETIME NULL, -- 峰实际透切时间
+    FError NVARCHAR(20) NULL, -- 峰投切误差值
+    FTstart NVARCHAR(20) NULL, -- 峰费率  下  总费率   起始值
+    FTend NVARCHAR(20) NULL, -- 峰费率  下  总费率   止值
+    FTvalue NVARCHAR(20) NULL, -- 峰费率  下  总费率   差值
+    Fstart NVARCHAR(20) NULL, -- 峰费率     起始值
+    Fend NVARCHAR(20) NULL, -- 峰费率     止值
+    Fvalue NVARCHAR(20) NULL, -- 峰费率     差值
+    FcombinErr NVARCHAR(20) NULL, -- 峰费率  下费率误差       |ΔW-ΔW总|*10(总计度器小数位)<=2  摘自JJG 596-1997
+    PStandardTQ DATETIME NULL, -- 平时段标准投切时间
+    PFactTQ DATETIME NULL, -- 平实际透切时间
+    PError NVARCHAR(20) NULL, -- 平投切误差值
+    PTstart NVARCHAR(20) NULL, -- 平费率  下  总费率   起始值
+    PTend NVARCHAR(20) NULL, -- 平费率  下  总费率   止值
+    PTvalue NVARCHAR(20) NULL, -- 平费率  下  总费率   差值
+    Pstart NVARCHAR(20) NULL, -- 平费率     起始值
+    Pend NVARCHAR(20) NULL, -- 平费率     止值
+    Pvalue NVARCHAR(20) NULL, -- 平费率     差值
+    PcombinErr NVARCHAR(20) NULL, -- 平费率  下费率误差         |ΔW-ΔW总|*10(总计度器小数位)<=2  摘自JJG 596-1997
+    GStandardTQ DATETIME NULL, -- 谷时段标准投切时间
+    GFactTQ DATETIME NULL, -- 谷实际投切时间
+    GError NVARCHAR(20) NULL, -- 谷投切误差值
+    GTstart NVARCHAR(20) NULL, -- 谷费率  下  总费率   起始值
+    GTend NVARCHAR(20) NULL, -- 谷费率  下  总费率   止值
+    GTvalue NVARCHAR(20) NULL, -- 谷费率  下  总费率   差值
+    Gstart NVARCHAR(20) NULL, -- 谷费率     起始值
+    Gand NVARCHAR(20) NULL, -- 谷费率     止值
+    Gvalue NVARCHAR(20) NULL, -- 谷费率     差值
+    GcombinErr NVARCHAR(20) NULL, -- 谷费率  下费率误差        |ΔW-ΔW总|*10(总计度器小数位)<=2  摘自JJG 596-1997
+    ShowStd NVARCHAR(20) NULL, -- 整个投切过程中标准表所走电量 W
+    SHowMeter NVARCHAR(20) NULL, -- 整个投切过程中被检表所走电量 W'
+    SHowValueErr NVARCHAR(20) NULL, -- 标准表法得到的示值误差：  abs(（W'-W）)*100/W<=0.1*Pre       摘自JJG 596-1997
+    MaxR01ibT NVARCHAR(6) NULL, -- 最大需量0.1Ib检查    ：： 不合格/未检/合格
+    MaxR1ibT NVARCHAR(6) NULL, -- 最大需量1Ib检查      ：： 不合格/未检/合格
+    MaxRImaxT NVARCHAR(6) NULL, -- 最大需量Imax检查     ：： 不合格/未检/合格
+    RequireT NVARCHAR(6) NULL, -- 需量周期检查         ：： 不合格/未检/合格
+    MaxR01ibSV NVARCHAR(20) NULL, -- 最大需量0.1Ib  标准值
+    MaxR01ibFV NVARCHAR(20) NULL, -- 最大需量0.1Ib  实际
+    MaxR01ibE NVARCHAR(20) NULL, -- 最大需量0.1Ib  误差
+    MaxR1ibSV NVARCHAR(20) NULL, -- 最大需量1Ib    标准
+    MaxR1ibFV NVARCHAR(20) NULL, -- 最大需量1Ib    实际
+    MaxR1ibE NVARCHAR(20) NULL, -- 最大需量1Ib    误差
+    MaxRImaxSV NVARCHAR(20) NULL, -- 最大需量Imax   标准
+    MaxRImaxFV NVARCHAR(20) NULL, -- 最大需量Imax   实际
+    MaxRImaxE NVARCHAR(20) NULL, -- 最大需量Imax   误差
+    Requirep INT NULL, -- 需量周期
+    Requireperr NVARCHAR(20) NULL, -- 需量周期误差
+    JYZD NVARCHAR(20) NULL, -- 尖费率 有功 正向 度数
+    JYFD NVARCHAR(20) NULL, -- 尖费率 有功 反向 度数
+    JWZD NVARCHAR(20) NULL, -- 尖费率 无功 正向 度数
+    JWFD NVARCHAR(20) NULL, -- 尖费率 无功 反向 度数
+    JW1D NVARCHAR(20) NULL, -- 尖费率 无功 1象限 度数
+    JW2D NVARCHAR(20) NULL, -- 尖费率 无功 2象限 度数
+    JW3D NVARCHAR(20) NULL, -- 尖费率 无
+功 3象限 度数
+    JW4D NVARCHAR(20) NULL, -- 尖费率 无功 4象限 度数
+    FYZD NVARCHAR(20) NULL, -- 峰费率 有功 正向 度数
+    FYFD NVARCHAR(20) NULL, -- 峰费率 有功 反向 度数
+    FWZD NVARCHAR(20) NULL, -- 峰费率 无功 正向 度数
+    FWFD NVARCHAR(20) NULL, -- 峰费率 无功 反向 度数
+    FW1D NVARCHAR(20) NULL, -- 峰费率 无功 1象限 度数
+    FW2D NVARCHAR(20) NULL, -- 峰费率 无功 2象限 度数
+    FW3D NVARCHAR(20) NULL, -- 峰费率 无功 3象限 度数
+    FW4D NVARCHAR(20) NULL, -- 峰费率 无功 4象限 度数
+    PYZD NVARCHAR(20) NULL, -- 平费率 有功 正向 度数
+    PYFD NVARCHAR(20) NULL, -- 平费率 有功 反向 度数
+    PWZD NVARCHAR(20) NULL, -- 平费率 无功 正向 度数
+    PWFD NVARCHAR(20) NULL, -- 平费率 无功 反向 度数
+    PW1D NVARCHAR(20) NULL, -- 平费率 无功 1象限 度数
+    PW2D NVARCHAR(20) NULL, -- 平费率 无功 2象限 度数
+    PW3D NVARCHAR(20) NULL, -- 平费率 无功 3象限 度数
+    PW4D NVARCHAR(20) NULL, -- 平费率 无功 4象限 度数
+    GYZD NVARCHAR(20) NULL, -- 谷费率 有功 正向 度数
+    GYFD NVARCHAR(20) NULL, -- 谷费率 有功 反向 度数
+    GWZD NVARCHAR(20) NULL, -- 谷费率 无功 正向 度数
+    GWFD NVARCHAR(20) NULL, -- 谷费率 无功 反向 度数
+    GW1D NVARCHAR(20) NULL, -- 谷费率 无功 1象限 度数
+    GW2D NVARCHAR(20) NULL, -- 谷费率 无功 2象限 度数
+    GW3D NVARCHAR(20) NULL, -- 谷费率 无功 3象限 度数
+    GW4D NVARCHAR(20) NULL, -- 谷费率 无功 4象限 度数
+    ZYZD NVARCHAR(20) NULL, -- 总费率 有功 正向 度数
+    ZYFD NVARCHAR(20) NULL, -- 总费率 有功 反向 度数
+    ZWZD NVARCHAR(20) NULL, -- 总费率 无功 正向 度数
+    ZWFD NVARCHAR(20) NULL, -- 总费率 无功 反向 度数
+    ZW1D NVARCHAR(20) NULL, -- 总费率 无功 1象限 度数
+    ZW2D NVARCHAR(20) NULL, -- 总费率 无功 2象限 度数
+    ZW3D NVARCHAR(20) NULL, -- 总费率 无功 3象限 度数
+    ZW4D NVARCHAR(20) NULL, -- 总费率 无功 4象限 度数
+    GPSSetTime NVARCHAR(20) NULL, -- GPS设置的电表时间
+    GPSGetTime NVARCHAR(20) NULL, -- GPS返回的电表时间
+    EndEj NVARCHAR(20) NULL, -- 走字结束时 尖电量
+    EndEf NVARCHAR(20) NULL, -- 走字结束时 峰电量
+    EndEp NVARCHAR(20) NULL, -- 走字结束时 平电量
+    EndEg NVARCHAR(20) NULL, -- 走字结束时 谷电量
+    EndE0 NVARCHAR(20) NULL, -- 走字结束时 总电量
+    CombinErr NVARCHAR(20) NULL, -- 组合误差                          (Ej+Ef+Ep+Eg-W0)/E0*100%       摘自《多功能表定型检定大纲》
+    VolDropLimit NVARCHAR(20) NULL, -- 电压跌落和短时中断允许脉冲：       x=m*Un*Imax*0.000001          摘自《多功能表定型检定大纲》
+    VolDropPulse NVARCHAR(20) NULL, -- 实测脉冲输出
+    MemoRule NVARCHAR(20) NULL, -- 存储器检查的判断依据：正无=象限I+II /正无=象限I+IV
+    EventRecord NVARCHAR(6) NULL, -- 事件记录功能：：   合格/不合格/未检(在需量示值时同时进行)
+    EventClearTimes1 NVARCHAR(10) NULL, -- 复零前--电表记录的需量复零次数
+    EventMeterTime NVARCHAR(20) NULL, -- 复零前--电表的即时时间
+    EventClearTimes2 NVARCHAR(10) NULL, -- 复零后--电表记录的需量复零次数(应加1)
+    EventClearTime2 NVARCHAR(20) NULL, -- 复零后--电表记录的需量复零的日期时间(应与EventTrueTime几乎相等,允许1分钟的误差)
+    JYZD_S NVARCHAR(20) NULL, -- 尖费率 有功 正向 度数(起始值)
+    JYFD_S NVARCHAR(20) NULL, -- 尖费率 有功 反向 度数(起始值)
+    JWZD_S NVARCHAR(20) NULL, -- 尖费率 无功 正向 度数(起始值)
+    JWFD_S NVARCHAR(20) NULL, -- 尖费率 无功 反向 度数(起始值)
+    FYZD_S NVARCHAR(20) NULL, -- 峰费率 有功 正向 度数(起始值)
+    FYFD_S NVARCHAR(20) NULL, -- 峰费率 有功 反向 度数(起始值)
+    FWZD_S NVARCHAR(20) NULL, -- 峰费率 无功 正向 度数(起始值)
+    FWFD_S NVARCHAR(20) NULL, -- 峰费率 无功 反向 度数(起始值)
+    PYZD_S NVARCHAR(20) NULL, -- 尖费率 有功 正向 度数(起始值)
+    PYFD_S NVARCHAR(20) NULL, -- 尖费率 有功 反向 度数(起始值)
+    PWZD_S NVARCHAR(20) NULL, -- 尖费率 无功 正向 度数(起始值)
+    PWFD_S NVARCHAR(20) NULL, -- 尖费率 无功 反向 度数(起始值)
+    GYZD_S NVARCHAR(20) NULL, -- 峰费率 有功 正向 度数(起始值)
+    GYFD_S NVARCHAR(20) NULL, -- 峰费率 有功 反向 度数(起始值)
+    GWZD_S NVARCHAR(20) NULL, -- 峰费率 无功 正向 度数(起始值)
+    GWFD_S NVARCHAR(20) NULL, -- 峰费率 无功 反向 度数(起始值)
+    ZYZD_S NVARCHAR(20) NULL, -- 总费率 有功 正向 度数(起始值)
+    ZYFD_S NVARCHAR(20) NULL, -- 总费率 有功 反向 度数(起始值)
+    ZWZD_S NVARCHAR(20) NULL, -- 总费率 无功 正向 度数(起始值)
+    ZWFD_S NVARCHAR(20) NULL, -- 总费率 无功 反向 度数(起始值)
+    BeginTime NVARCHAR(20) NULL, -- 试验起始时间
+    EndTime NVARCHAR(20) NULL, -- 试验结束时间
+    MaxR005ibSV NVARCHAR(12) NULL, -- 
+    MaxR005ibFV NVARCHAR(12) NULL, -- 
+    MaxR005ibE NVARCHAR(12) NULL, -- 
+    MaxR005ibT NVARCHAR(12) NULL, --
+	RequireperrAve NVARCHAR(12) NULL, --
+	DayErr1 NVARCHAR(12) NULL, --
+	DayErr2 NVARCHAR(12) NULL, --
+	DayErr3 NVARCHAR(12) NULL, --
+	DayErr4 NVARCHAR(12) NULL, --
+	DayErr5 NVARCHAR(12) NULL, --
+	DayErr6 NVARCHAR(12) NULL, --
+	DayErr7 NVARCHAR(12) NULL, --
+	DayErr8 NVARCHAR(12) NULL, --
+	DayErr9 NVARCHAR(12) NULL, --
+	DayErr10 NVARCHAR(12) NULL, --
+	DayErrAve NVARCHAR(12) NULL --
+);
+
+CREATE TABLE TmpSpecialError (
+    IndexID SMALLINT,
+    iRangeNo INT,
+    cRange NVARCHAR(50),
+    cError NVARCHAR(100),
+    cAveData NVARCHAR(10),
+    cCIData NVARCHAR(10),
+    cSmax NVARCHAR(10),
+    bOverLimit BIT,
+    cAffectV NVARCHAR(10),
+    cStdCIData NVARCHAR(10),
+    cStdAveData NVARCHAR(10),
+    cConnect NVARCHAR(50),
+    fVoltage FLOAT,
+    fCurrent FLOAT,
+    fFrequency FLOAT,
+    fAngleA FLOAT,
+    fAngleB FLOAT,
+    fAngleC FLOAT,
+    cABCVoltage NVARCHAR(3),
+    cABCCurrent NVARCHAR(3),
+    cLimit NVARCHAR(10),
+    cBCLimit NVARCHAR(10),
+    cLoadName NVARCHAR(40),
+    bFlagTest BIT,
+    iCompare INT,
+    cXieBo NVARCHAR(50),
+    fLeanAngle FLOAT,
+    bReverse BIT,
+    iCircles INT,
+    iTestTimes TINYINT,
+    ACur NVARCHAR(20),
+    BCur NVARCHAR(20),
+    CCur NVARCHAR(20),
+    AAgl NVARCHAR(20),
+    BAgl NVARCHAR(20),
+    CAgl NVARCHAR(20)
+);
+
+CREATE TABLE TmpResult (
+    IndexID INT,
+    Hidetest NVARCHAR(6),
+    Starttest NVARCHAR(6),
+    WalkTest NVARCHAR(6),
+    HideTest1 NVARCHAR(6),
+    HideTest2 NVARCHAR(6),
+    HideTest3 NVARCHAR(6),
+    HideTest4 NVARCHAR(6),
+    StartTest1 NVARCHAR(8),
+    StartTest2 NVARCHAR(8),
+    StartTest3 NVARCHAR(8),
+    StartTest4 NVARCHAR(8),
+    WalkTest1 NVARCHAR(6),
+    WalkTest2 NVARCHAR(6),
+    WalkTest3 NVARCHAR(6),
+    WalkTest4 NVARCHAR(6),
+    StartTime1 NVARCHAR(10),
+    StartTime2 NVARCHAR(10),
+    StartTime3 NVARCHAR(10),
+    StartTime4 NVARCHAR(10),
+    StartCurrent1 NVARCHAR(8),
+    StartCurrent2 NVARCHAR(8),
+    StartCurrent3 NVARCHAR(8),
+    StartCurrent4 NVARCHAR(8),
+    StartTimeT1 NVARCHAR(10),
+    StartTimeT2 NVARCHAR(10),
+    StartTimeT3 NVARCHAR(10),
+    StartTimeT4 NVARCHAR(10),
+    HideTime1 NVARCHAR(10),
+    HideTime2 NVARCHAR(10),
+    HideTime3 NVARCHAR(10),
+    HideTime4 NVARCHAR(10),
+    HideVoltage1 NVARCHAR(30),
+    HideVoltage2 NVARCHAR(30),
+    HideVoltage3 NVARCHAR(30),
+    HideVoltage4 NVARCHAR(30),
+    HideTimeT1 NVARCHAR(8),
+    HideTimeT2 NVARCHAR(8),
+    HideTimeT3 NVARCHAR(8),
+    HideTimeT4 NVARCHAR(8),
+    WalkValue1 NVARCHAR(8),
+    WalkValue2 NVARCHAR(8),
+    WalkValue3 NVARCHAR(8),
+    WalkValue4 NVARCHAR(8),
+    WalkValueT1 NVARCHAR(8),
+    WalkValueT2 NVARCHAR(8),
+    WalkValueT3 NVARCHAR(8),
+    WalkValueT4 NVARCHAR(8),
+    WalkError1 NVARCHAR(8),
+    WalkError2 NVARCHAR(8),
+    WalkError3 NVARCHAR(8),
+    WalkError4 NVARCHAR(8),
+    PulseWidth NVARCHAR(8),
+    PulseWidth1 NVARCHAR(8),
+    PulseWidth2 NVARCHAR(8),
+    PulseWidth3 NVARCHAR(8),
+    PulseWidth4 NVARCHAR(8),
+    PulseWidthV1 NVARCHAR(12),
+    PulseWidthV2 NVARCHAR(12),
+    PulseWidthV3 NVARCHAR(12),
+    PulseWidthV4 NVARCHAR(12),
+    PulseHeight NVARCHAR(8),
+    PulseHeight1 NVARCHAR(8),
+    PulseHeight2 NVARCHAR(8),
+    PulseHeight3 NVARCHAR(8),
+    PulseHeight4 NVARCHAR(8),
+    PulseHeightV1 NVARCHAR(12),
+    PulseHeightV2 NVARCHAR(12),
+    PulseHeightV3 NVARCHAR(12),
+    PulseHeightV4 NVARCHAR(12),
+    WalkValueS1 NVARCHAR(20),
+    WalkValueS2 NVARCHAR(20),
+    WalkValueS3 NVARCHAR(20),
+    WalkValueS4 NVARCHAR(20),
+    WalkValueE1 NVARCHAR(20),
+    WalkValueE2 NVARCHAR(20),
+    WalkValueE3 NVARCHAR(20),
+    WalkValueE4 NVARCHAR(20),
+    WalkError_Pulse1 NVARCHAR(12),
+    WalkError_Pulse2 NVARCHAR(12),
+    WalkError_Pulse3 NVARCHAR(12),
+    WalkError_Pulse4 NVARCHAR(12),
+    WalkLimit NVARCHAR(12)
+);

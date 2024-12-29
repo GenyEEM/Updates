@@ -1,0 +1,296 @@
+CREATE TABLE tblBatch (
+    BatchNumber INT PRIMARY KEY IDENTITY(1,1) NOT NULL, -- 批号，自增主键
+    BatchTodayNumber INT NULL, -- 表示当天的批次
+    BatchName NVARCHAR(50) NULL, -- 批名
+    TestDate DATETIME NULL, -- 检定日期
+    TestTime NVARCHAR(50) NULL, -- 校验时间
+    Temp FLOAT NULL, -- 检定环境温度
+    Humidity FLOAT NULL, -- 检定环境湿度
+    Tester NVARCHAR(20) NULL, -- 检定员
+    Retester NVARCHAR(20) NULL, -- 核验员
+    Manage NVARCHAR(20) NULL, -- 主管
+    Voltage FLOAT NULL, -- 额定电压
+    Current FLOAT NULL, -- 标定电流
+    CurrentMax FLOAT NULL, -- 额定最大电流
+    Frequency FLOAT NULL, -- 额定频率
+    BanchNO NVARCHAR(10) NULL, -- 台号
+    ReferenceMeter NVARCHAR(20) NULL, -- 标准表名称
+    PassNumber INT NULL, -- 合格表的个数
+    FailNumber INT NULL, -- 不合格表的个数
+    FailMaterNO NVARCHAR(MAX) NULL, -- 不合格表的编号串
+    TotalNumber SMALLINT NULL -- 总挂表数
+);
+
+CREATE TABLE tblHarmonic (
+    MeterID INT NULL, -- Meter ID
+    MeasureDegreeID INT NULL, -- Measurement Degree ID (Each model has multiple measurement ranges, and each range has a unique ID)
+    TestItemID INT NULL, -- Test Item ID
+    Frequency TINYINT NULL, -- Harmonic order
+    Voltage FLOAT NULL, -- Voltage amplitude
+    VoltageAngle FLOAT NULL, -- Voltage phase
+    Current FLOAT NULL, -- Current amplitude
+    CurrentAngle FLOAT NULL -- Current phase
+);
+
+
+CREATE TABLE tblMeasureDegree (
+    MeterID INT NULL, -- Meter ID
+    MeasureDegreeID INT NULL, -- Measurement Degree ID (Each model has multiple measurement ranges, and each range has a unique ID)
+    MeasureName NVARCHAR(50) NULL, -- Measurement Range Name
+    ListNo SMALLINT NULL, -- Inspection Order
+    Voltage FLOAT NULL, -- Reference Voltage for the Range
+    Current FLOAT NULL, -- Reference Current for the Range
+    CurrentMax FLOAT NULL, -- Maximum Reference Current for the Range
+    ConnectMode TINYINT NULL -- Connection Mode: 0 for single-phase positive; 1 for three-phase four-wire active positive; 2 for three-phase four-wire reactive positive; 3 for three-phase three-wire active positive; 4 for three-phase three-wire reactive positive; 5 for three-phase four-wire cross-phase reactive positive; 6 for three-phase three-wire cross-phase reactive positive; 7 for single-phase reverse; 8 for three-phase four-wire active reverse; 9 for three-phase four-wire reactive reverse; 10 for three-phase three-wire active reverse; 11 for three-phase three-wire reactive reverse; 12 for three-phase four-wire cross-phase reactive reverse; 13 for three-phase three-wire cross-phase reactive reverse
+);
+
+
+CREATE TABLE tblMeter (
+    MeterID INT IDENTITY(1,1) PRIMARY KEY NOT NULL, -- ID
+    BatchNumber INT NULL, -- Batch Number
+    Nest SMALLINT NULL, -- Station
+    EquitmentNumber NVARCHAR(20) NULL, -- Calibration device number
+    MeterNo NVARCHAR(20) NULL, -- The nameplate number on the meter to be hung
+    AssetNo NVARCHAR(20) NULL, -- Asset Number
+    BarCode NVARCHAR(30) NULL, -- Barcode
+    MeterAddress NVARCHAR(20) NULL, -- Meter address
+    TestDate DATETIME NULL, -- Test Date
+    Temp FLOAT NULL, -- Test environment temperature
+    Humidity FLOAT NULL, -- Test environment humidity
+    Tester NVARCHAR(20) NULL, -- Tester
+    Retester NVARCHAR(20) NULL, -- Retester
+    Manage NVARCHAR(20) NULL, -- Supervisor
+    TestUnit NVARCHAR(50) NULL, -- Submitting unit
+    Conclusion BIT NOT NULL, -- Conclusion
+    MeterType NVARCHAR(50) NULL, -- Model name
+    MeterName NVARCHAR(50) NULL, -- Meter name
+    Type INT NULL, -- Type of meter: 0 for installed electronic meters, 1 for installed induction meters, 2 for electromechanical meters, 3 for standard meters, 4 for portable instruments
+    SwitchOnMode TINYINT NULL, -- Connection mode: for electronic meters (0 for direct connection, 1 for with transformer); for induction meters: (2 for without reversing device, 3 for with reversing device); for standard meters (4 for type A, 5 for type B)
+    Detent TINYINT NULL, -- Induction meter with reversing device: 0 for without, 1 for with
+    ReferenceMeterType TINYINT NULL, -- Standard meter type: 0 for type A, 1 for type B
+    Class FLOAT NULL, -- Grade
+    Class1 FLOAT NULL, -- Grade 1 (Reactive grade)
+    Connection TINYINT NULL, -- Wiring method: 0 for single-phase; 1 for three-phase four-wire active; 2 for three-phase four-wire reactive; 3 for three-phase three-wire active; 4 for three-phase three-wire reactive; 5 for three-phase four-wire cross-phase reactive; 6 for three-phase three-wire cross-phase reactive; 7 for three-phase four-wire; 8 for three-phase three-wire; 9 for three-phase; 10 for single-phase reactive
+    Voltage FLOAT NULL, -- Rated voltage
+    Current FLOAT NULL, -- Calibration current
+    CurrentMax FLOAT NULL, -- Rated maximum current
+    Frequency FLOAT NULL, -- Rated frequency
+    Constant FLOAT NULL, -- Constant
+    ConstantUnit NVARCHAR(10) NULL, -- Constant unit
+    ConstantReactive FLOAT NULL, -- Reactive constant
+    ConstantUnitReactive NVARCHAR(10) NULL, -- Reactive constant unit
+    Manufactory NVARCHAR(50) NULL, -- Manufacturer
+    ProduceStandard NTEXT NULL, -- Manufacturing standard
+    EffectiveDate DATETIME NULL, -- Effective date
+    MeterSortNumber INT NULL, -- Meter sort number
+    Net BIT NOT NULL -- Net
+);
+
+
+CREATE TABLE tblTestItem (
+    MeterID INT NULL, -- Meter ID
+    MeasureDegreeID INT NULL, -- Measurement Degree ID (Each model has multiple measurement ranges, and each range has a unique ID)
+    TestItemID INT NULL, -- Test Item ID
+    ListNo SMALLINT NULL, -- Test Order
+    TestItemName NVARCHAR(50) NULL, -- Test Item Name
+    CheckType SMALLINT NULL, -- Test Type: 0 for basic test; 1 for start-up; 2 for potential movement; 3 for constant check test; 4 for meter total energy示值 error; 5 for meter示值 combination error; 6 for daily time error; 7 for determine period switching; 8 for demand示值 error; 9 for sampling pulse frequency; 10 for determine demand period error; 11 for power supply voltage influence; 12 for energy measurement; 13 for demand reset; 14 for maximum demand; 15 for tariff and period; 16 for event recording; 17 for programmer preset content check; 18 for display function; 19 for extended function check; 20 for reverse power influence; 21 for power consumption measurement
+    CheckAffect SMALLINT NULL, -- 0 No impact test; 1 for voltage influence; 2 for frequency influence; 3 for reverse phase sequence; 4 for voltage unbalance; 5 harmonics; 6 for tilt test
+    CheckValue FLOAT NULL, -- Impact test input quantity: does not affect the basic test. Harmonic test for total harmonic number, maximum harmonic number; -1 for half-wave, -2 for odd harmonics, -3 for sub-harmonics. Constant check for metered energy. Meter total energy示值 error: mechanical type for metered count, electronic type for metered time, hour. Meter示值 combination error for metered count. Daily time error method: 0 for demand示值 error for demand period, min.
+    CheckValue1 FLOAT NULL, -- (Test type input quantity) Daily time error running time, hour
+    CheckValue2 FLOAT NULL, -- Spare
+    CheckValue3 FLOAT NULL, -- Spare
+    CheckValue4 FLOAT NULL -- Spare
+);
+
+CREATE TABLE tblTestResult00 (
+    MeterID INT NULL, -- 编号
+    MeasureDegreeID INT NULL, -- 量程编号(每一个型号有多个量程，每个量程有一个唯一编号)
+    TestItemID INT NULL, -- 校验项ID
+    TestPointName NVARCHAR(50) NULL, -- 校验负载点名称
+    ListNo SMALLINT NULL, -- 顺序编号
+    Phase TINYINT NULL, -- 电流分元：1 A相，2 B相，4 C相，0或7 全相；电压分相：8 A相，16 B相，32 C相
+    VoltagePercent FLOAT NULL, -- 电压百分比
+    CurrentPercent FLOAT NULL, -- >0为标定电流倍数，-1 Imax，-2 1/2Imax，-3 1/2(Imax-Ib)
+    PowerFoctor FLOAT NULL, -- 功率因数：>0为感性，<0为容性
+    Cycle INT NULL, -- 圈数
+    SampleCount INT NULL, -- 采样次数
+    TestTime INT NULL, -- 理论试验时间，单位为秒
+    Time INT NULL, -- 实际试验时间，单位为秒
+    TopErr FLOAT NULL, -- 校验方案模板误差上限
+    BotErr FLOAT NULL, -- 校验方案模板误差下限
+    StandardErr FLOAT NULL, -- 标准偏差估计值范围只有正值
+    IsStandardTest BIT NOT NULL, -- 是否做标准偏差估计值
+    ErrData NTEXT NULL, -- 负载点误差值
+    AveData NVARCHAR(10) NULL, -- 平均值
+    Error NVARCHAR(10) NULL, -- 化整值
+    Conclusion BIT NOT NULL, -- 结论
+    StandardError NVARCHAR(8) NULL, -- 标准偏差估计值
+    StandardConclusion BIT NOT NULL -- 标准偏差结论
+);
+
+
+CREATE TABLE tblTestResult01 (
+    MeterID INT NULL, -- 编号
+    MeasureDegreeID INT NULL, -- 量程编号(每一个型号有多个量程，每个量程有一个唯一编号)
+    TestItemID INT NULL, -- 校验项ID
+    ListNo SMALLINT NULL, -- 顺序编号
+    Voltagepercent FLOAT NULL, -- 电压百份比
+    Currentpercent FLOAT NULL, -- 电流百份比
+    StartAllTime NVARCHAR(50) NULL, -- 起动时间
+    StartRuntime NVARCHAR(50) NULL, -- 起动运行时间
+    Conclusion BIT NOT NULL -- 结论
+);
+
+CREATE TABLE tblTestResult02 (
+    MeterID INT NULL, -- 编号
+    MeasureDegreeID INT NULL, -- 量程编号(每一个型号有多个量程，每个量程有一个唯一编号)
+    TestItemID INT NULL, -- 校验项ID
+    ListNo SMALLINT NULL, -- 顺序编号
+    Voltagepercent FLOAT NULL, -- 电压百份比
+    Currentpercent FLOAT NULL, -- 电流百份比
+    HideAllTime NVARCHAR(50) NULL, -- 潜动时间
+    HideRuntime NVARCHAR(50) NULL, -- 潜动运行时间
+    Conclusion BIT NOT NULL -- 结论
+);
+
+
+CREATE TABLE tblTestResult03 (
+    MeterID INT, -- 编号
+    MeasureDegreeID INT, -- 量程编号(每一个型号有多个量程，每个量程有一个唯一编号)
+    TestItemID INT, -- 校验项ID
+    ListNo SMALLINT, -- 顺序编号
+    CTtime NVARCHAR(20), -- 时间
+    VoltagePercent INT, -- 电压
+    CurrentPercent FLOAT, -- 电流
+    Constant FLOAT, -- 常数
+    StartDeg NVARCHAR(20), -- 起始度
+    EndDeg NVARCHAR(20), -- 终止度
+    ZZDeg NVARCHAR(20), -- 走字度
+    LLDeg NVARCHAR(20), -- 理论度
+    CTerr NVARCHAR(20), -- 日计时误差
+    Conclusion BIT CHECK (Conclusion IN (0, 1)) -- 结论
+);
+
+
+CREATE TABLE tblTestResult05 (
+    MeterID INT, -- Meter ID
+    MeasureDegreeID INT, -- Measure Degree ID (Each model has multiple measure ranges, and each measure range has a unique ID)
+    TestItemID INT, -- Test Item ID
+    ListNo SMALLINT, -- Sequence Number
+    TotalPower NVARCHAR(20), -- Total Power
+    JianFengPower NVARCHAR(20), -- Peak Power Injection Result
+    FengPower NVARCHAR(20), -- Peak Power Injection Result
+    PingPower NVARCHAR(20), -- Flat Power Injection Result
+    GuPower NVARCHAR(20), -- Valley Power Injection Result
+    Conclusion BIT CHECK (Conclusion IN (0, 1)), -- Conclusion (Yes/No)
+    CONSTRAINT PK_tblTestResult05 PRIMARY KEY (MeterID, MeasureDegreeID, TestItemID) -- Primary Key
+);
+
+
+CREATE TABLE tblTestResult06 (
+    MeterID INT, -- 编号
+    MeasureDegreeID INT, -- 量程编号(每一个型号有多个量程，每个量程有一个唯一编号)
+    TestItemID INT, -- 校验项ID
+    ListNo SMALLINT, -- 顺序编号
+    TimeFrequency INT, -- 时钟频率
+    SampleTime INT, -- 采样时间
+    SampleCount INT, -- 采样次数
+    ErrData NTEXT, -- 日计时原始误差
+    RJSerr NVARCHAR(50), -- 日计时误差
+    Conclusion BIT CHECK (Conclusion IN (0, 1)) -- 结论(Yes/No)
+);
+
+
+CREATE TABLE tblTestResult07 (
+    MeterID INT, -- 编号
+    MeasureDegreeID INT, -- 量程编号(每一个型号有多个量程，每个量程有一个唯一编号)
+    TestItemID INT, -- 校验项ID
+    ListNo SMALLINT, -- 顺序编号
+    JianFengConclusion BIT CHECK (JianFengConclusion IN (0, 1)), -- 尖峰投切结果(Yes/No)
+    FengConclusion BIT CHECK (FengConclusion IN (0, 1)), -- 峰投切结果(Yes/No)
+    PingConclusion BIT CHECK (PingConclusion IN (0, 1)), -- 平投切结果(Yes/No)
+    GuConclusion BIT CHECK (GuConclusion IN (0, 1)), -- 谷投切结果(Yes/No)
+    Conclusion BIT CHECK (Conclusion IN (0, 1)) -- 总结论(Yes/No)
+);
+
+
+CREATE TABLE tblTestResult08 (
+    MeterID INT, -- 编号
+    MeasureDegreeID INT, -- 量程编号(每一个型号有多个量程，每个量程有一个唯一编号)
+    TestItemID INT, -- 校验项ID
+    ListNo SMALLINT, -- 顺序编号
+    TestPointName NVARCHAR(50), -- 负载点名称
+    Phase TINYINT, -- 电流分元：1 A相，2 B相，4 C相，0或7 全相；电压分相：8 A相，16 B相，32 C相
+    VoltagePercent FLOAT, -- 电压百分比
+    CurrentPercent FLOAT, -- >0为标定电流倍数，-1 Imax，-2 1/2Imax，-3 1/2(Imax-Ib)
+    PowerFoctor FLOAT, -- 功率因数：>0为感性，<0为容性
+    XLTime FLOAT, -- 总时间
+    XLMax NVARCHAR(50), -- 最大需量
+    XLErr NVARCHAR(50), -- 需量误差
+    STXLMax NVARCHAR(20), -- 标准表需量
+    Conclusion BIT CHECK (Conclusion IN (0, 1)) -- 结论(Yes/No)
+);
+
+CREATE TABLE tblTestResult10 (
+    MeterID INT, -- 编号
+    MeasureDegreeID INT, -- 量程编号(每一个型号有多个量程，每个量程有一个唯一编号)
+    TestItemID INT, -- 校验项ID
+    TestPointId INT, -- 校验点ID
+    ListNo SMALLINT, -- 顺序编号
+    ErrData NVARCHAR(10), -- 误差数据
+    Conclusion BIT CHECK (Conclusion IN (0, 1)) -- 结论(Yes/No)
+);
+
+CREATE TABLE tblTestResult16 (
+    MeterID INT,
+    MeasureDegreeID INT,
+    TestItemID INT,
+    ListNo SMALLINT,
+    PZPower NVARCHAR(20),
+    PZJFPower NVARCHAR(20),
+    PZFPower NVARCHAR(20),
+    PZPPower NVARCHAR(20),
+    PZGPower NVARCHAR(20),
+    QZPower NVARCHAR(20),
+    QZJFPower NVARCHAR(20),
+    QZFPower NVARCHAR(20),
+    QZPPower NVARCHAR(20),
+    QZGPower NVARCHAR(20),
+    PFPower NVARCHAR(20),
+    PFJFPower NVARCHAR(20),
+    PFFPower NVARCHAR(20),
+    PFPPower NVARCHAR(20),
+    PFGPower NVARCHAR(20),
+    QFPower NVARCHAR(20),
+    QFJFPower NVARCHAR(20),
+    QFFPower NVARCHAR(20),
+    QFPPower NVARCHAR(20),
+    QFGPower NVARCHAR(20),
+    Q1Power NVARCHAR(20),
+    Q1JFPower NVARCHAR(20),
+    Q1FPower NVARCHAR(20),
+    Q1PPower NVARCHAR(20),
+    Q1GPower NVARCHAR(20),
+    Q2Power NVARCHAR(20),
+    Q2JFPower NVARCHAR(20),
+    Q2FPower NVARCHAR(20),
+    Q2PPower NVARCHAR(20),
+    Q2GPower NVARCHAR(20),
+    Q3Power NVARCHAR(20),
+    Q3JFPower NVARCHAR(20),
+    Q3FPower NVARCHAR(20),
+    Q3PPower NVARCHAR(20),
+    Q3GPower NVARCHAR(20),
+    Q4Power NVARCHAR(20),
+    Q4JFPower NVARCHAR(20),
+    Q4FPower NVARCHAR(20),
+    Q4PPower NVARCHAR(20),
+    Q4GPower NVARCHAR(20),
+    Conclusion BIT NOT NULL
+);
+
+
+
+
+
+

@@ -1,0 +1,386 @@
+CREATE TABLE BiaoZhenBiaoData (
+    MeterHungID INT NULL, -- Meter Hung ID
+    ModelTypeId INT NULL, -- Model Type ID
+    TypeId INT NULL, -- Type ID
+    ListT INT NULL, -- List T
+    WhatTable INT NULL, -- What Table
+    WhereGrid INT NULL, -- Where Grid
+    ListSecondT INT NULL, -- List Second T
+    Fun INT NULL, -- Fun
+    Connection INT NULL, -- Connection
+    Data FLOAT NULL -- Data
+);
+
+CREATE TABLE BiaoZhenBiaoData2 (
+    MeterHungId INT NULL, -- Meter Hung ID
+    ModelTypeId INT NULL, -- Model Type ID
+    TypeId INT NULL, -- Type ID
+    ListT INT NULL, -- List T
+    Connection INT NULL, -- Connection
+    Data FLOAT NULL -- Data
+);
+
+CREATE TABLE tblAutoRunList (
+    ListNo SMALLINT NULL, -- Test Item Sequence (Only 1-29 are unique)
+    CheckType SMALLINT NULL, -- Verification Type: 0 for basic verification; 1 for start-up; 2 for hidden movement; 3 for constant check test; 4 for meter total energy indication error; 5 for meter indication combination error; 6 for daily timing error; 7 for determine time segment switching; 8 for demand indication error; 9 for sampling pulse frequency; 10 for determine demand period error; 11 for power supply voltage influence; 12 for energy metering; 13 for demand reset; 14 for maximum demand; 15 for tariff and time period; 16 for event recording; 17 for programmer preset content check; 18 for display function; 19 for extended function check; 20 for reverse power influence; 21 for power consumption measurement
+    CheckAffect SMALLINT NULL, -- 0 No impact test; 1 for voltage impact; 2 for frequency impact; 3 for reverse phase sequence; 4 for voltage unbalance; 5 harmonics input; 6 for tilt test
+    TestItemName NVARCHAR(50) NULL, -- Test Item Name
+    IsEnable BIT NOT NULL, -- Whether the Test Item is Valid
+    OverLoad INT NULL, -- Whether the Test Item can be Reloaded Multiple Times
+    Dest NVARCHAR(50) NULL -- Description
+);
+
+CREATE TABLE tblMeter (
+    MeterHungId INT NULL, -- Meter Hung ID
+    ModelTypeId INT NULL, -- Model Type ID
+    TypeId INT NULL, -- Type ID
+    ListT INT NULL, -- List T
+    Connection INT NULL, -- Connection
+    Data FLOAT NULL, -- Data
+    BarCode NVARCHAR(30) NULL, -- Barcode
+    MeterName NVARCHAR(50) NULL, -- Meter Name
+    ProtocolID SMALLINT NULL, -- Communication Protocol Number
+    CommPort INT NULL, -- Communication Port
+    Baudrate INT NULL, -- Baud Rate
+    DataBit TINYINT NULL, -- Data Bits
+    StopBit TINYINT NULL, -- Stop Bits
+    Parity NVARCHAR(1) NULL, -- Parity
+    TestDate DATETIME NULL, -- Test Date
+    Temp FLOAT NULL, -- Calibration Environment Temperature
+    Humidity FLOAT NULL, -- Calibration Environment Humidity
+    Tester NVARCHAR(20) NULL, -- Tester
+    Retester NVARCHAR(20) NULL, -- Re-tester
+    Manage NVARCHAR(20) NULL, -- Manager
+    TestUnit NVARCHAR(50) NULL -- Testing Unit
+);
+
+CREATE TABLE tblMeterModel
+(
+    ModelTypeID INT,
+    MeterName NVARCHAR(50),
+    MeterType NVARCHAR(50),
+    Type INT,
+    SwitchOnMode TINYINT,
+    Detent TINYINT,
+    ReferenceMeterType TINYINT,
+    Class NVARCHAR(8),
+    Class1 NVARCHAR(8),
+    Connection TINYINT,
+    Voltage FLOAT,
+    Current FLOAT,
+    CurrentMax FLOAT,
+    Frequency FLOAT,
+    Constant FLOAT,
+    ConstantUnit NVARCHAR(10),
+    ConstantReactive FLOAT,
+    ConstantUnitReactive NVARCHAR(10),
+    Manufactory NVARCHAR(50),
+    ProduceStandard NTEXT,
+    TimeFrequency INT,
+    ProtocolID SMALLINT,
+    Baudrate INT,
+    DataBit TINYINT,
+    StopBit TINYINT,
+    Parity NVARCHAR(1),
+    DecimalDigits SMALLINT,
+    WGZX INT,
+    WGFX INT,
+    PRIMARY KEY (ModelTypeID)
+);
+
+CREATE TABLE tblPrjHarmonic
+(
+    MeasureDegreeID INT,
+    TestItemID INT,
+    Frequency TINYINT,
+    Voltage FLOAT,
+    VoltageAngle FLOAT,
+    Current FLOAT,
+    CurrentAngle FLOAT,
+    CONSTRAINT PK_tblPrjHarmonic PRIMARY KEY (MeasureDegreeID, TestItemID)
+);
+
+CREATE TABLE tblPrjMeasureDegree
+(
+    MeasureDegreeID INT PRIMARY KEY,
+    MeasureName NVARCHAR(50),
+    ListNo SMALLINT,
+    Voltage FLOAT,
+    Current FLOAT,
+    CurrentMax FLOAT,
+    ConnectMode TINYINT,
+    CONSTRAINT UC_MeasureDegreeID UNIQUE (MeasureDegreeID)
+);
+
+
+CREATE TABLE tblPrjMeasureDegree
+(
+    MeasureDegreeID INT PRIMARY KEY,
+    MeasureName NVARCHAR(50),
+    ListNo SMALLINT,
+    Voltage FLOAT,
+    Current FLOAT,
+    CurrentMax FLOAT,
+    ConnectMode TINYINT,
+    CONSTRAINT UC_MeasureDegreeID UNIQUE (MeasureDegreeID)
+);
+
+CREATE TABLE tblPrjTestPoint
+(
+    MeasureDegreeID INT,
+    TestItemID INT,
+    TestPointName NVARCHAR(50),
+    TestPointId INT,
+    ListNo SMALLINT,
+    Phase TINYINT,
+    VoltagePercent FLOAT,
+    CurrentPercent FLOAT,
+    PowerFactor FLOAT,
+    Cycle INT,
+    SampleCount INT,
+    TestTime INT,
+    Time INT,
+    TopErr FLOAT,
+    BotErr FLOAT,
+    IsTest BIT,
+    StandardErr FLOAT,
+    IsStandardTest BIT,
+    IsTestPoint BIT,
+    CONSTRAINT PK_tblPrjTestPoint PRIMARY KEY (MeasureDegreeID, TestItemID, TestPointId)
+);
+
+CREATE TABLE tblPrjTestPointMeter
+(
+    MeterHungID INT,
+    MeasureDegreeID INT,
+    TestItemID INT,
+    ListNo SMALLINT,
+    Cycle INT,
+    TestTime INT,
+    Time INT,
+    TopErr FLOAT,
+    BotErr FLOAT,
+    StandardErr FLOAT,
+    CONSTRAINT PK_tblPrjTestPointMeter PRIMARY KEY (MeterHungID, MeasureDegreeID, TestItemID)
+);
+
+CREATE TABLE tblProject
+(
+    ProjectID INT,
+    ProjectName NVARCHAR(50),
+    ConnectMode INT,
+    PRIMARY KEY (ProjectID)
+);
+
+CREATE TABLE tblTestResult00
+(
+    MeterHungID INT,
+    MeasureDegreeID INT,
+    TestItemID INT,
+    TestPointId INT,
+    TestPointName NVARCHAR(50),
+    ListNo SMALLINT,
+    Phase TINYINT,
+    VoltagePercent FLOAT,
+    CurrentPercent FLOAT,
+    PowerFoctor FLOAT,
+    Cycle INT,
+    SampleCount INT,
+    TestTime INT,
+    Time INT,
+    TopErr FLOAT,
+    BotErr FLOAT,
+    StandardErr FLOAT,
+    IsStandardTest BIT,
+    ErrData NTEXT,
+    AveData NVARCHAR(10),
+    Error NVARCHAR(10),
+    Conclusion BIT,
+    StandardError NVARCHAR(8),
+    StandardConclusion BIT,
+    PRIMARY KEY (MeterHungID, MeasureDegreeID, TestItemID, TestPointId)
+);
+
+
+CREATE TABLE tblTestResult01
+(
+    MeterHungID INT,
+    MeasureDegreeID INT,
+    TestItemID INT,
+    TestPointId INT,
+    ListNo SMALLINT,
+    VoltagePercent FLOAT,
+    CurrentPercent FLOAT,
+    StartAllTime NVARCHAR(50),
+    StartRuntime NVARCHAR(50),
+    Conclusion BIT,
+    PRIMARY KEY (MeterHungID, MeasureDegreeID, TestItemID, TestPointId)
+);
+
+CREATE TABLE tblTestResult02
+(
+    MeterHungID INT,
+    MeasureDegreeID INT,
+    TestItemID INT,
+    TestPointId INT,
+    ListNo SMALLINT,
+    VoltagePercent FLOAT,
+    CurrentPercent FLOAT,
+    HideAllTime NVARCHAR(50),
+    HideRuntime NVARCHAR(50),
+    Conclusion BIT,
+    PRIMARY KEY (MeterHungID, MeasureDegreeID, TestItemID, TestPointId)
+);
+
+CREATE TABLE tblTestResult03
+(
+    MeterHungID INT,
+    MeasureDegreeID INT,
+    TestItemID INT,
+    ListNo SMALLINT,
+    CTtime NVARCHAR(20),
+    VoltagePercent INT,
+    CurrentPercent FLOAT,
+    Constant FLOAT,
+    StartDeg NVARCHAR(20),
+    EndDeg NVARCHAR(20),
+    ZZDeg NVARCHAR(20),
+    LLDeg NVARCHAR(20),
+    ZZPlus NVARCHAR(20),
+    CTerr NVARCHAR(20),
+    Conclusion BIT,
+    PRIMARY KEY (MeterHungID, MeasureDegreeID, TestItemID)
+);
+
+
+CREATE TABLE tblTestResult05
+(
+    MeterHungID INT,
+    MeasureDegreeID INT,
+    TestItemID INT,
+    ListNo SMALLINT,
+    TotalPower NVARCHAR(20),
+    JianFengPower NVARCHAR(20),
+    FengPower NVARCHAR(20),
+    PingPower NVARCHAR(20),
+    GuPower NVARCHAR(20),
+    Conclusion BIT,
+    PRIMARY KEY (MeterHungID, MeasureDegreeID, TestItemID)
+);
+
+
+CREATE TABLE tblTestResult06
+(
+    MeterHungID INT,
+    MeasureDegreeID INT,
+    TestItemID INT,
+    ListNo SMALLINT,
+    TimeFrequency FLOAT,
+    SampleTime INT,
+    SampleCount INT,
+    ErrData NTEXT,
+    RJSerr NVARCHAR(20),
+    Conclusion BIT,
+    PRIMARY KEY (MeterHungID, MeasureDegreeID, TestItemID)
+);
+
+CREATE TABLE tblTestResult07
+(
+    MeterHungID INT,
+    MeasureDegreeID INT,
+    TestItemID INT,
+    ListNo SMALLINT,
+    JianFengConclusion BIT,
+    FengConclusion BIT,
+    PingConclusion BIT,
+    GuConclusion BIT,
+    Conclusion BIT,
+    PRIMARY KEY (MeterHungID, MeasureDegreeID, TestItemID)
+);
+
+
+CREATE TABLE tblTestResult08
+(
+    MeterHungID INT,
+    MeasureDegreeID INT,
+    TestItemID INT,
+    TestPointId INT,
+    ListNo SMALLINT,
+    TestPointName NVARCHAR(50),
+    Phase TINYINT,
+    VoltagePercent FLOAT,
+    CurrentPercent FLOAT,
+    PowerFoctor FLOAT,
+    XLtime FLOAT,
+    XLmax NVARCHAR(20),
+    XLerr NVARCHAR(20),
+    STXLMax NVARCHAR(20),
+    Conclusion BIT,
+    PRIMARY KEY (MeterHungID, MeasureDegreeID, TestItemID)
+);
+
+
+CREATE TABLE tblTestResult10
+(
+    MeterHungID INT,
+    MeasureDegreeID INT,
+    TestItemID INT,
+    TestPointId INT,
+    ListNo SMALLINT,
+    ErrData NVARCHAR(10),
+    Conclusion BIT,
+    PRIMARY KEY (MeterHungID, MeasureDegreeID, TestItemID, TestPointId)
+);
+
+
+CREATE TABLE tblTestResult16
+(
+    MeterHungID INT,
+    MeasureDegreeID INT,
+    TestItemID INT,
+    TestPointId INT,
+    ListNo SMALLINT,
+    PZPower NVARCHAR(20),
+    PZJFPower NVARCHAR(20),
+    PZFPower NVARCHAR(20),
+    PZPPower NVARCHAR(20),
+    PZGPower NVARCHAR(20),
+    QZPower NVARCHAR(20),
+    QZJFPower NVARCHAR(20),
+    QZFPower NVARCHAR(20),
+    QZPPower NVARCHAR(20),
+    QZGPower NVARCHAR(20),
+    PFPower NVARCHAR(20),
+    PFJFPower NVARCHAR(20),
+    PFFPower NVARCHAR(20),
+    PFPPower NVARCHAR(20),
+    PFGPower NVARCHAR(20),
+    QFPower NVARCHAR(20),
+    QFJFPower NVARCHAR(20),
+    QFFPower NVARCHAR(20),
+    QFPPower NVARCHAR(20),
+    QFGPower NVARCHAR(20),
+    Q1Power NVARCHAR(20),
+    Q1JFPower NVARCHAR(20),
+    Q1FPower NVARCHAR(20),
+    Q1PPower NVARCHAR(20),
+    Q1GPower NVARCHAR(20),
+    Q2Power NVARCHAR(20),
+    Q2JFPower NVARCHAR(20),
+    Q2FPower NVARCHAR(20),
+    Q2PPower NVARCHAR(20),
+    Q2GPower NVARCHAR(20),
+    Q3Power NVARCHAR(20),
+    Q3JFPower NVARCHAR(20),
+    Q3FPower NVARCHAR(20),
+    Q3PPower NVARCHAR(20),
+    Q3GPower NVARCHAR(20),
+    Q4Power NVARCHAR(20),
+    Q4JFPower NVARCHAR(20),
+    Q4FPower NVARCHAR(20),
+    Q4PPower NVARCHAR(20),
+    Q4GPower NVARCHAR(20),
+    Conclusion BIT,
+    PRIMARY KEY (MeterHungID, MeasureDegreeID, TestItemID)
+);
+

@@ -1,0 +1,211 @@
+
+CREATE TABLE ErrData (
+    MeterID FLOAT NULL, -- 表ID(唯一标识）
+    RangeCode SMALLINT NULL, -- 量程序号
+    SortNo SMALLINT NULL, -- 负载点序号
+    LoadName NVARCHAR(25) NULL, -- 负载点名称
+    Data1 NVARCHAR(8) NULL, -- 误差1
+    Data2 NVARCHAR(8) NULL, -- 误差2
+    Data3 NVARCHAR(8) NULL, -- 误差3
+    Data4 NVARCHAR(8) NULL, -- 误差4
+    Data5 NVARCHAR(8) NULL, -- 误差5
+    AveData NVARCHAR(8) NULL, -- 平均值
+    CIData NVARCHAR(8) NULL, -- 化整值
+    SmaxData NVARCHAR(8) NULL, -- 标准偏差估计值
+    Data6 NVARCHAR(8) NULL,
+    Data7 NVARCHAR(8) NULL,
+    Data8 NVARCHAR(8) NULL,
+    Data9 NVARCHAR(8) NULL,
+    Data10 NVARCHAR(8) NULL,
+    Data11 NVARCHAR(8) NULL,
+    Data12 NVARCHAR(8) NULL,
+    qualified NVARCHAR(8) NULL
+);
+
+CREATE TABLE ResultData (
+    MeterID FLOAT NULL, -- Meter ID (unique)
+    MeterPlace SMALLINT NOT NULL, -- Meter Placement
+    serialno NVARCHAR(50) NULL, -- Bureau Number
+    meterno NVARCHAR(50) NULL, -- Meter Number
+    ScanCode NVARCHAR(20) NULL, -- Barcode
+    Model NVARCHAR(20) NULL, -- Type
+    Type NVARCHAR(20) NULL, -- Category
+    Voltage NVARCHAR(10) NULL, -- Voltage
+    Current NVARCHAR(10) NULL, -- Current
+    Constant NVARCHAR(32) NULL, -- Constant
+    Precision NVARCHAR(10) NULL, -- Precision
+    WireModel NVARCHAR(20) NULL, -- Wiring Method
+    Frequency NVARCHAR(8) NULL, -- Frequency
+    SerialDate NVARCHAR(10) NULL, -- Production Date
+    MadePlace NVARCHAR(30) NULL, -- Manufacturer
+    TEMP NVARCHAR(5) NULL, -- Temperature
+    HUMIDITY NVARCHAR(5) NULL, -- Humidity
+    TESTER NVARCHAR(30) NULL, -- Tester
+    RETESTER NVARCHAR(30) NULL, -- Re-tester
+    MANAGE NVARCHAR(30) NULL, -- Manager
+    TESTDATE NVARCHAR(10) NULL, -- Test Date
+    STARTEST NVARCHAR(8) NULL, -- Start Test
+    HIDDENTEST NVARCHAR(8) NULL, -- Hidden Test
+    StopTest NVARCHAR(8) NULL, -- Stop Test
+    StartCurrent NVARCHAR(10) NULL, -- Starting Current
+    Resistance NVARCHAR(10) NULL, -- Insulation Resistance
+    PIEZO NVARCHAR(10) NULL, -- Piezoelectric Pressure
+    TESTYER NVARCHAR(4) NULL, -- Test Year
+    TESTMON NVARCHAR(2) NULL, -- Test Month
+    TESTDAY NVARCHAR(2) NULL, -- Test Day
+    MINCURR NVARCHAR(5) NULL, -- Rated Current
+    WALKTEST NVARCHAR(10) NULL, -- Walk Test
+    STARTDEG NVARCHAR(10) NULL, -- Daily Timing Error (Starting Degree)
+    ENDDEG NVARCHAR(10) NULL, -- Daily Timing Error Conclusion (Ending Degree)
+    CUNDUTOTAL NVARCHAR(10) NULL, -- Multi-function Meter Communication Conclusion (Peak Value)
+    CUNDUPEAK NVARCHAR(10) NULL, -- Actual Starting Time (Flat Value)
+    CUNDUVALEY NVARCHAR(10) NULL, -- Actual Hidden Time (Valley Value)
+    PNO NVARCHAR(12) NULL, -- Batch Number (Auto-increment)
+    TNO NVARCHAR(12) NULL, -- Unit Number
+    TestUnit NVARCHAR(30) NULL, -- Testing Unit
+    Smax NVARCHAR(10) NULL, -- Maximum S Value
+    ForConclusion NVARCHAR(6) NULL, -- Pre-adjustment Conclusion
+    AftConclusion NVARCHAR(6) NULL, -- Post-adjustment Conclusion
+    Conclusion24h NVARCHAR(6) NULL, -- 24h Variation Conclusion
+    Conclusion NVARCHAR(8) NULL, -- Conclusion
+    Net NVARCHAR(50) NULL, -- Network
+    StartTime NVARCHAR(10) NULL, -- Start Time
+    HideTime NVARCHAR(10) NULL -- Hide Time
+);
+
+
+CREATE TABLE SpecialErrorData (
+    MeterID FLOAT NULL, -- Meter ID
+    IndexID SMALLINT NULL, -- Index Number
+    iRangeNo INT NULL, -- Influence Number
+    cRange NVARCHAR(50) NULL, -- Influence Name
+    cError NVARCHAR(100) NULL, -- Error Data for Each Time (Latest, Second Latest, Third Latest, etc.) Up to 10 Times
+    cAveData NVARCHAR(10) NULL, -- Average Value of the Last Two
+    cCIData NVARCHAR(10) NULL, -- Rounded Value
+    cSmax NVARCHAR(10) NULL, -- Deviation Value
+    bOverLimit BIT NOT NULL, -- Whether Out of Tolerance (Rounded Value/Deviation Value)
+    cAffectV NVARCHAR(10) NULL, -- Influence Value
+    cStdCIData NVARCHAR(10) NULL, -- Standard Rounded Value
+    cStdAveData NVARCHAR(10) NULL, -- Standard Average Value
+    cConnect NVARCHAR(50) NULL, -- Connection
+    fVoltage FLOAT NULL, -- Voltage
+    fCurrent FLOAT NULL, -- Current
+    fFrequency FLOAT NULL, -- Frequency
+    fAngleA FLOAT NULL, -- Angle A
+    fAngleB FLOAT NULL, -- Angle B
+    fAngleC FLOAT NULL, -- Angle C
+    cABCVoltage NVARCHAR(3) NULL, -- ABC Voltage
+    cABCCurrent NVARCHAR(3) NULL, -- ABC Current
+    cLimit NVARCHAR(10) NULL, -- Limit
+    cBCLimit NVARCHAR(10) NULL, -- BC Limit
+    cLoadName NVARCHAR(40) NULL, -- Load Name
+    bFlagTest BIT NOT NULL, -- Test Flag
+    iCompare INT NULL, -- Comparison
+    cXieBo NVARCHAR(50) NULL, -- XieBo
+    fLeanAngle FLOAT NULL, -- Lean Angle
+    bReverse BIT NOT NULL, -- Reverse
+    iCircles INT NULL, -- Circles
+    iTestTimes TINYINT NULL, -- Test Times
+    ACur NVARCHAR(20) NULL, -- A Current
+    BCur NVARCHAR(20) NULL, -- B Current
+    CCur NVARCHAR(20) NULL, -- C Current
+    AAgl NVARCHAR(20) NULL, -- A Angle
+    BAgl NVARCHAR(20) NULL, -- B Angle
+    CAgl NVARCHAR(20) NULL, -- C Angle
+    repe_error NTEXT NULL -- Repeat Error
+);
+
+CREATE TABLE TestRange (
+    MeterID FLOAT NULL, -- Meter ID
+    RangeCode INT NULL, -- Range Code
+    Voltage NVARCHAR(10) NULL, -- Voltage Value
+    Current NVARCHAR(10) NULL, -- Current Value
+    ConnectMode NVARCHAR(24) NULL, -- Connection Mode
+    dialtest NTEXT NULL -- Dial Test
+);
+
+CREATE TABLE tmpresult (
+    MeterID FLOAT NULL, -- Meter ID
+    Hidetest NVARCHAR(255) NULL, -- Hide Test
+    Starttest NVARCHAR(255) NULL, -- Start Test
+    WalkTest NVARCHAR(255) NULL, -- Walk Test
+    HideTest1 NVARCHAR(255) NULL, -- Hide Test 1
+    HideTest2 NVARCHAR(255) NULL, -- Hide Test 2
+    HideTest3 NVARCHAR(255) NULL, -- Hide Test 3
+    HideTest4 NVARCHAR(255) NULL, -- Hide Test 4
+    StartTest1 NVARCHAR(255) NULL, -- Start Test 1
+    StartTest2 NVARCHAR(255) NULL, -- Start Test 2
+    StartTest3 NVARCHAR(255) NULL, -- Start Test 3
+    StartTest4 NVARCHAR(255) NULL, -- Start Test 4
+    WalkTest1 NVARCHAR(255) NULL, -- Walk Test 1
+    WalkTest2 NVARCHAR(255) NULL, -- Walk Test 2
+    WalkTest3 NVARCHAR(255) NULL, -- Walk Test 3
+    WalkTest4 NVARCHAR(255) NULL, -- Walk Test 4
+    StartTime1 NVARCHAR(255) NULL, -- Start Time 1
+    StartTime2 NVARCHAR(255) NULL, -- Start Time 2
+    StartTime3 NVARCHAR(255) NULL, -- Start Time 3
+    StartTime4 NVARCHAR(255) NULL, -- Start Time 4
+    StartCurrent1 NVARCHAR(255) NULL, -- Start Current 1
+    StartCurrent2 NVARCHAR(255) NULL, -- Start Current 2
+    StartCurrent3 NVARCHAR(255) NULL, -- Start Current 3
+    StartCurrent4 NVARCHAR(255) NULL, -- Start Current 4
+    StartTimeT1 NVARCHAR(255) NULL, -- Start Time T1
+    StartTimeT2 NVARCHAR(255) NULL, -- Start Time T2
+    StartTimeT3 NVARCHAR(255) NULL, -- Start Time T3
+    StartTimeT4 NVARCHAR(255) NULL, -- Start Time T4
+    HideTime1 NVARCHAR(255) NULL, -- Hide Time 1
+    HideTime2 NVARCHAR(255) NULL, -- Hide Time 2
+    HideTime3 NVARCHAR(255) NULL, -- Hide Time 3
+    HideTime4 NVARCHAR(255) NULL, -- Hide Time 4
+    HideVoltage1 NVARCHAR(255) NULL, -- Hide Voltage 1
+    HideVoltage2 NVARCHAR(255) NULL, -- Hide Voltage 2
+    HideVoltage3 NVARCHAR(255) NULL, -- Hide Voltage 3
+    HideVoltage4 NVARCHAR(255) NULL, -- Hide Voltage 4
+    HideTimeT1 NVARCHAR(255) NULL, -- Hide Time T1
+    HideTimeT2 NVARCHAR(255) NULL, -- Hide Time T2
+    HideTimeT3 NVARCHAR(255) NULL, -- Hide Time T3
+    HideTimeT4 NVARCHAR(255) NULL, -- Hide Time T4
+    WalkValue1 NVARCHAR(255) NULL, -- Walk Value 1
+    WalkValue2 NVARCHAR(255) NULL, -- Walk Value 2
+    WalkValue3 NVARCHAR(255) NULL, -- Walk Value 3
+    WalkValue4 NVARCHAR(255) NULL, -- Walk Value 4
+    WalkValueT1 NVARCHAR(255) NULL, -- Walk Value T1
+    WalkValueT2 NVARCHAR(255) NULL, -- Walk Value T2
+    WalkValueT3 NVARCHAR(255) NULL, -- Walk Value T3
+    WalkValueT4 NVARCHAR(255) NULL, -- Walk Value T4
+    WalkError1 NVARCHAR(255) NULL, -- Walk Error 1
+    WalkError2 NVARCHAR(255) NULL, -- Walk Error 2
+    WalkError3 NVARCHAR(255) NULL, -- Walk Error 3
+    WalkError4 NVARCHAR(255) NULL, -- Walk Error 4
+    PulseWidth NVARCHAR(255) NULL, -- Pulse Width
+    PulseWidth1 NVARCHAR(255) NULL, -- Pulse Width 1
+    PulseWidth2 NVARCHAR(255) NULL, -- Pulse Width 2
+    PulseWidth3 NVARCHAR(255) NULL, -- Pulse Width 3
+    PulseWidth4 NVARCHAR(255) NULL, -- Pulse Width 4
+    PulseWidthV1 NVARCHAR(255) NULL, -- Pulse Width V1
+    PulseWidthV2 NVARCHAR(255) NULL, -- Pulse Width V2
+    PulseWidthV3 NVARCHAR(255) NULL, -- Pulse Width V3
+    PulseWidthV4 NVARCHAR(255) NULL, -- Pulse Width V4
+    PulseHeight NVARCHAR(255) NULL, -- Pulse Height
+    PulseHeight1 NVARCHAR(255) NULL, -- Pulse Height 1
+    PulseHeight2 NVARCHAR(255) NULL, -- Pulse Height 2
+    PulseHeight3 NVARCHAR(255) NULL, -- Pulse Height 3
+    PulseHeight4 NVARCHAR(255) NULL, -- Pulse Height 4
+    PulseHeightV1 NVARCHAR(255) NULL, -- Pulse Height V1
+    PulseHeightV2 NVARCHAR(255) NULL, -- Pulse Height V2
+    PulseHeightV3 NVARCHAR(255) NULL, -- Pulse Height V3
+    PulseHeightV4 NVARCHAR(255) NULL, -- Pulse Height V4
+    WalkValueS1 NVARCHAR(255) NULL, -- Walk Value S1
+    WalkValueS2 NVARCHAR(255) NULL, -- Walk Value S2
+    WalkValueS3 NVARCHAR(255) NULL, -- Walk Value S3
+    WalkValueS4 NVARCHAR(255) NULL, -- Walk Value S4
+    WalkValueE1 NVARCHAR(255) NULL, -- Walk Value E1
+    WalkValueE2 NVARCHAR(255) NULL, -- Walk Value E2
+    WalkValueE3 NVARCHAR(255) NULL, -- Walk Value E3
+    WalkValueE4 NVARCHAR(255) NULL, -- Walk Value E4
+    WalkError_Pulse1 NVARCHAR(255) NULL, -- Walk Error Pulse 1
+    WalkError_Pulse2 NVARCHAR(255) NULL, -- Walk Error Pulse 2
+    WalkError_Pulse3 NVARCHAR(255) NULL, -- Walk Error Pulse 3
+    WalkError_Pulse4 NVARCHAR(255) NULL, -- Walk Error Pulse 4
+    WalkLimit NVARCHAR(255) NULL -- Walk Limit
+);
