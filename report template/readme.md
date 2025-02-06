@@ -1,8 +1,14 @@
-It is possible to export EEM's test data to Excel files in the following common template formats. These can also be customised.
-The three possible formats are as follows:
+### General
+
+EEM allows you to export test data to Excel files using several common template formats, which can also be customized. The three available formats are:
+
 1. Batch listing of all meter test data
 2. Individual listing of test data for a single meter
-3. Customised output of meter test data
+3. Customized output of meter test data 
+
+--- 
+
+Feel free to let me know if you need further adjustments!
 
 ### CLP test report
 The CLP test report will generate two files: one in PDF format and the other in Excel, which contains only the test data.
